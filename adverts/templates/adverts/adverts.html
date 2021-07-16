@@ -56,7 +56,7 @@
                     {{ advert.created | date:'d M Y' }}
                 </td>
                 <td>
-                    {{ advert.content | truncatechars:50 | censor:'ipsum' }}
+                    {{ advert.content | truncatechars:100 | censor:'ipsum' }}
                 </td>
             </tr>
         {% endfor %}

@@ -11,7 +11,7 @@ class AdvertForm(ModelForm):
     # Мы уже делали что-то похожее с фильтрами.
     class Meta:
         model = Advert
-        fields = ['adv_name', 'category', 'image', 'content', 'video', 'file', 'announcer']
+        fields = '__all__' #['adv_name', 'category', 'image', 'content', 'video', 'file', 'announcer']
         widgets = {
             # "adv_name": Char(attrs={"class": "form-control"}),
             "category": Select(choices=Category.objects.all(), attrs={"class": "form-control"}),

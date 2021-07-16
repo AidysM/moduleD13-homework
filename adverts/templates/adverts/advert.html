@@ -1,5 +1,7 @@
 {% extends 'flatpages/default.html' %}
 
+{% load custom_filters %}
+
 {% block title %}
   {{ advert.adv_name }}
 {% endblock title %}
@@ -13,8 +15,18 @@
         <img src="{{ advert.image.url }}" alt="{{ advert.title }}" width="500">
     {% endif %}
 
-    {{ advert.content | truncatechars:100 }}
-          
+    {{ advert.content | censor:'ipsum' }}
+    <br><br>
+    {% if advert.video %}
+        <video width='400' controls>
+        <source src='{{ MEDIA_URL }}{{ advert.video }}' type='video/mp4'>
+        Your browser does not support the video tag.
+        </video>
+    {% endif %}
+    <br><br>
+    {% if advert.file %}
+        <a href="{{ MEDIA_URL }}{{ advert.file }}">{{ advert.title }}</a>
+    {% endif %}
     <hr>
     <h3>Отклики</h3>
     {% with advert.replies.count as total_replies %}
