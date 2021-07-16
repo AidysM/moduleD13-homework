@@ -25,6 +25,8 @@ urlpatterns = [
     path('about/', views.flatpage, {'url': '/about/'}, name='about'),
     path('contact/', views.flatpage, {'url': '/contact/'}, name='contact'),
     path('adverts/', include('adverts.urls')),
+    path('', include('protect.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
