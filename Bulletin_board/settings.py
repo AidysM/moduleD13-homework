@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'fpages',
     'adverts.apps.AdvertsConfig',
     'protect',
+    'sign',
 ]
 
 MIDDLEWARE = [

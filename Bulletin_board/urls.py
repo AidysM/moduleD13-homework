@@ -26,6 +26,7 @@ urlpatterns = [
     path('contact/', views.flatpage, {'url': '/contact/'}, name='contact'),
     path('adverts/', include('adverts.urls')),
     path('', include('protect.urls')),
+    path('sign/', include('sign.urls')),
     path('accounts/', include('allauth.urls')),
 ]
 
