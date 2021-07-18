@@ -14,7 +14,7 @@
             <a href="#">{{ advert.adv_name }}, </a>
         {% endfor %}
     {% else %}
-        <h3>Ваших объявлений нет!</h3>
+        <h4>Ваших объявлений нет!</h4>
     {% endif %}
     <hr>
     <h3>Отклики {{ request.user.username }}:</h3>
@@ -24,7 +24,7 @@
         {% endfor %}
 
     {% else %}
-         <h3>Нет откликов!</h3>
+         <h4>Нет откликов!</h4>
     {% endif %}
     <hr>
     <button> <a href="sign/logout/">Выйти</a> </button>

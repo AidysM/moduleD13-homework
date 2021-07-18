@@ -158,11 +158,19 @@ SITE_ID = 1
 LOGIN_URL = 'accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_HOST = 'smtp.yandex.ru' # адрес сервера Яндекс-почты для всех один и тот же
-EMAIL_PORT = 465 # порт smtp сервера тоже одинаковый
-EMAIL_HOST_USER = 'mongushit@yandex.ru' # ваше имя пользователя, например если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-EMAIL_HOST_PASSWORD = 'hiyvfkfejgaopolj' # пароль от почты
-EMAIL_USE_SSL = True # Яндекс использует ssl, подробнее о том, что это, почитайте на Википедии, но включать его здесь обязательно
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
+
+EMAIL_HOST = 'smtp.google.com' # адрес сервера Яндекс-почты для всех один и тот же
+EMAIL_PORT = 587 #465 # порт smtp сервера тоже одинаковый
+EMAIL_HOST_USER = 'mongushit79@gmail.com' # ваше имя пользователя, например если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = '10011979Gm' # пароль от почты
+EMAIL_USE_TLS = True # Яндекс использует ssl, подробнее о том, что это, почитайте на Википедии, но включать его здесь обязательно
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
@@ -180,4 +188,113 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SERVER_EMAIL = 'mongushit@yandex.ru' # это будет у нас вместо аргумента FROM в массовой рассылке
+SERVER_EMAIL = EMAIL_HOST_USER #'mongushit@yandex.ru' # это будет у нас вместо аргумента FROM в массовой рассылке
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache_files'), # Указываем, куда будем сохранять
+        # кэшируемые файлы! Не забываем создать папку cache_files внутри папки с manage.py!
+    }
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s %(message)s'
+        },
+
+        'forwarning': {
+            'level': 'WARNING',
+            'format': '%(pathname)s %(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'for_errors': {
+            'level': 'ERROR',
+            'format': '%(pathname)s %(levelname)s %(asctime)s %(module)s %(message)s %(exc_info)s'
+        },
+        'for_mail': {
+            'level': 'ERROR',
+            'format': '%(pathname)s %(levelname)s %(asctime)s %(module)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filters': ['require_debug_false'],
+            'formatter': 'forwarning',
+            'filename': 'general.log',
+            'maxBytes': 1024,
+            'backupCount': 3
+        },
+        'errors': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'for_errors',
+            'filename': 'errors.log',
+            'maxBytes': 1024,
+            'backupCount': 3
+        },
+        'security': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'for_errors',
+            'filename': 'security.log',
+            'maxBytes': 1024,
+            'backupCount': 3
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins', 'errors'],
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'propagate': False,
+            'formatter': 'for_mail',
+        },
+        'django.server': {
+            'handlers': ['mail_admins', 'errors'],
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'propagate': False,
+            'formatter': 'for_mail',
+        },
+        'django.template': {
+            'handlers': ['errors'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.db_backends': {
+            'handlers': ['errors'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['security'],
+            'propagate': False,
+        },
+    },
+}

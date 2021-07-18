@@ -22,7 +22,7 @@ def notify_managers_post(sender, instance, created, **kwargs):
     send_mail(
         subject=subject,
         message=instance.text,
-        from_email='mongushit@yandex.ru',
+        from_email='mongushit79@gmail.com',
         recipient_list=[instance.user.email, instance.advert.announcer.user.email, ]
     )
 
