@@ -16,6 +16,11 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.cat_name
 
+    class Meta:
+        ordering = ['cat_name']
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
 
 class Advert(models.Model):
     adv_name = models.CharField(max_length=200, verbose_name='Заголовок')
