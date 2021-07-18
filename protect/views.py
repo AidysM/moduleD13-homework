@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import UserForm
+from adverts.models import Reply, Advert
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -11,6 +12,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_announcers'] = not self.request.user.groups.filter(name='announcers').exists()
+        context['adverts'] = Advert.objects.filter(announcer=self.request.user.id).order_by('adv_name')
+        context['replies'] = Reply.objects.filter(user=self.request.user).order_by('-created_reply')
         return context
 
 
