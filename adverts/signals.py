@@ -14,10 +14,10 @@ def notify_managers_post(sender, instance, created, **kwargs):
     else:
         subject = f'Reply changed for {instance.text} {instance.created_reply.strftime("%d %m %Y")}'
 
-    # mail_managers(
-    #     subject=subject,
-    #     message=instance.text,
-    # )
+    mail_managers(
+        subject=subject,
+        message=instance.text,
+    )
 
     send_mail(
         subject=subject,
@@ -26,15 +26,20 @@ def notify_managers_post(sender, instance, created, **kwargs):
         recipient_list=[instance.user.email, instance.advert.announcer.user.email, ]
     )
 
+    mail_admins(
+        subject=subject,
+        message=instance.text,
+    )
+
 
 @receiver(post_delete, sender=Reply)
 def notify_managers_post_canceled(sender, instance, **kwargs):
     subject = f'{instance.text} has canceled his reply!'
 
-    # mail_managers(
-    #     subject=subject,
-    #     message=f'Canceled reply for {instance.created_reply.strftime("%d %m %Y")}',
-    # )
+    mail_managers(
+        subject=subject,
+        message=f'Canceled reply for {instance.created_reply.strftime("%d %m %Y")}',
+    )
 
     print(subject)
 

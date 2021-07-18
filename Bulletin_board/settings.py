@@ -190,6 +190,15 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SERVER_EMAIL = EMAIL_HOST_USER #'mongushit@yandex.ru' # это будет у нас вместо аргумента FROM в массовой рассылке
 
+ADMINS = [
+    ('Aidys', 'mongushit79@gmail.com'),
+    # список всех админов в формате ('имя', 'их почта')
+]
+MANAGERS = [
+    ('Айдыс', 'mongush10011979@gmail.com'),
+    # список всех менеджеров в формате ('имя', 'их почта')
+]
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
