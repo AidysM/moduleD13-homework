@@ -8,13 +8,14 @@
     <h2>Страница авторизованного пользователя {{request.user.username}}</h2>
     <div> Здесь может содержаться персональная информация для каждого пользователя </div>
     <hr>
-    <h3>Объявления {{ request.user.username }}:</h3>
+
     {% if adverts %}
+        <h3>Объявления {{ request.user.username }}:</h3>
         {% for advert in adverts %}
             <a href="{% url 'replies_by_advert' advert.id %}">{{ advert.adv_name }}, </a>
         {% endfor %}
-    {% else %}
-        <h4>Ваших объявлений нет!</h4>
+{#    {% else %}#}
+{#        <h4>Ваших объявлений нет!</h4>#}
     {% endif %}
     {% if adv_replies %}
         <br>
@@ -22,14 +23,15 @@
         {% endblock replies %}
     {% endif %}
     <hr>
-    <h3>Отклики {{ request.user.username }}:</h3><br>
+
     {% if replies %}
+        <h3>Отклики {{ request.user.username }}:</h3><br>
         {% for reply in replies %}
             {{ reply.text }} {{ reply.created_reply }} - {{ reply.advert }}<br><br>
         {% endfor %}
 
-    {% else %}
-         <h4>Нет откликов!</h4>
+{#    {% else %}#}
+{#         <h4>Нет откликов!</h4>#}
     {% endif %}
     <hr>
     <button> <a href="sign/logout/">Выйти</a> </button>

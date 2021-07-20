@@ -1,8 +1,10 @@
 {% extends 'protect/profile.html' %}
 
 {% block replies %}
-    Список откликов на {{ advert.adv_name }}: <br>
+    <h3>Список откликов на {{ advert.adv_name }}:</h3> <br>
     {% for adv_reply in adv_replies %}
         {{ adv_reply.text }} {{ adv_reply.created_reply }} by {{ adv_reply.user.username }}<br>
     {% endfor %}
+    <br>
+    <a href="/">Назад</a>
 {% endblock %}
