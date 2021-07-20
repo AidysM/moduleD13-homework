@@ -1,0 +1,8 @@
+{% extends 'protect/profile.html' %}
+
+{% block replies %}
+    Список откликов на {{ advert.adv_name }}
+    {% for adv_reply in adv_replies %}
+        {{ adv_reply.text }}<br>
+    {% endfor %}
+{% endblock %}

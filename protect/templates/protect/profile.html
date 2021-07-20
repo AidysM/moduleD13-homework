@@ -11,13 +11,16 @@
     <h3>Объявления {{ request.user.username }}:</h3>
     {% if adverts %}
         {% for advert in adverts %}
-            <a href="#">{{ advert.adv_name }}, </a>
+            <a href="{% url 'replies_by_advert' advert.id %}">{{ advert.adv_name }}, </a>
         {% endfor %}
     {% else %}
         <h4>Ваших объявлений нет!</h4>
     {% endif %}
+    <br>
+    {% block replies %}
+    {% endblock replies %}
     <hr>
-    <h3>Отклики {{ request.user.username }}:</h3>
+    <h3>Отклики {{ request.user.username }}:</h3><br>
     {% if replies %}
         {% for reply in replies %}
             {{ reply.text }} {{ reply.created_reply }} - {{ reply.advert }}<br><br>
