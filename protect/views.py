@@ -5,14 +5,15 @@ from django.views.generic import TemplateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
+# from adverts.views import ReplyDetailView
 from .forms import UserForm
 from adverts.models import Reply, Advert
 
 
 def replies_by_advert(request, advert_pk):
-    # for advert in adverts:
+    advert = Advert.objects.get(id=advert_pk)
     adv_replies = Reply.objects.filter(advert=advert_pk).order_by('created_reply')
-    context = {'adv_replies': adv_replies}
+    context = {'advert': advert, 'adv_replies': adv_replies}
     return render(request, 'protect/replies.html', context)
 
 

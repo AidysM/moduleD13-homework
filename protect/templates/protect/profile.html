@@ -16,9 +16,11 @@
     {% else %}
         <h4>Ваших объявлений нет!</h4>
     {% endif %}
-    <br>
-    {% block replies %}
-    {% endblock replies %}
+    {% if adv_replies %}
+        <br>
+        {% block replies %}
+        {% endblock replies %}
+    {% endif %}
     <hr>
     <h3>Отклики {{ request.user.username }}:</h3><br>
     {% if replies %}
