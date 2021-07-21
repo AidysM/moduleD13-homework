@@ -1,5 +1,7 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, BooleanField
 from django.contrib.auth.models import User
+
+from adverts.models import Reply
 
 
 class UserForm(ModelForm):
@@ -9,3 +11,9 @@ class UserForm(ModelForm):
         fields = '__all__'
 
 
+class RepliesForm(ModelForm):
+    check_box = BooleanField(label='Прочитано')
+
+    class Meta:
+        model = Reply
+        fields = {'check_box'}

@@ -1,5 +1,5 @@
 from django.db.models import fields
-from django.forms import ModelForm, Textarea, Select
+from django.forms import ModelForm, Textarea, Select, BooleanField
 from django.forms import widgets   # Импортируем true-false поле
 from .models import Advert, Reply, Announcer, Category
 from django.contrib.auth.models import User
@@ -22,6 +22,7 @@ class AdvertForm(ModelForm):
 
 
 class ReplyForm(ModelForm):
+
     class Meta:
         model = Reply
         fields = ('user', 'advert', 'text')

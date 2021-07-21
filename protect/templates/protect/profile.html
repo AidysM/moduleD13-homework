@@ -14,13 +14,14 @@
         {% for advert in adverts %}
             <a href="{% url 'replies_by_advert' advert.id %}">{{ advert.adv_name }}, </a>
         {% endfor %}
-{#    {% else %}#}
-{#        <h4>Ваших объявлений нет!</h4>#}
+
     {% endif %}
     {% if adv_replies %}
         <br>
         {% block replies %}
         {% endblock replies %}
+    {% else %}
+        <a href="/">Назад</a>
     {% endif %}
     <hr>
 
@@ -30,8 +31,6 @@
             {{ reply.text }} {{ reply.created_reply }} - {{ reply.advert }}<br><br>
         {% endfor %}
 
-{#    {% else %}#}
-{#         <h4>Нет откликов!</h4>#}
     {% endif %}
     <hr>
     <button> <a href="sign/logout/">Выйти</a> </button>
