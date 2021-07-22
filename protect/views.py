@@ -34,16 +34,16 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = '/'
 
 
-# class ReplyList(ListView):
-#     model = Reply
-#     template_name = 'protect/replies.html'
-#     # context_object_name = 'replies'
-#     queryset = Reply.objects.order_by('-created_reply')
-#     paginate_by = 10
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         replies = Advert.replies.all()
-#         context['replies'] = replies
-#
-#         return context
+class ReplyView(TemplateView):
+    model = Reply
+    template_name = 'protect/reply.html'
+    context_object_name = 'adv_reply'
+    queryset = Reply.objects.all()
+    # paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # replies = Reply.objects.filter()
+        # context['replies'] = replies
+
+        return context

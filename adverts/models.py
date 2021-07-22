@@ -46,6 +46,7 @@ class Reply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField("Текст отклика")
     created_reply = models.DateTimeField(auto_now_add=True)
+    taken = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created_reply']
