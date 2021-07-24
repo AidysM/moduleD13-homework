@@ -1,6 +1,7 @@
 import requests
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
@@ -23,7 +24,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_announcers'] = not self.request.user.groups.filter(name='announcers').exists()
-        context['adverts'] = Advert.objects.filter(announcer=self.request.user.id).order_by('adv_name')
+        context['adverts'] = Advert.objects.filter(announcer=self.request.user.id).order_by('-created')
         context['replies'] = Reply.objects.filter(user=self.request.user).order_by('-created_reply')
         return context
 
@@ -34,18 +35,17 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = '/'
 
 
-# class ReplyView(TemplateView):
-#     model = Reply
-#     template_name = 'protect/reply.html'
-#     context_object_name = 'adv_reply'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         # replies = Reply.objects.filter()
-#         # context['replies'] = replies
-#
-#         return context
-
-
-def take_reply(request, reply_pk):
+def delete_reply(request):
     pass
+
+
+def take_reply(request):
+    reply = Reply.objects.get(id=request.GET.get('id'))
+    send_mail(
+        'Your reply is taken',
+        'Hi! Your reply form { reply.created_reply } is taken.',
+        'mongushit79@gmail.com',
+        [request.user.email]
+    )
+    return redirect('replies_by_advert')
+
