@@ -30,7 +30,7 @@
     <hr>
     <h3>Отклики</h3>
     {% with advert.replies.count as total_replies %}
-        <h4>{{ total_replies }} reply{{ total_replies | pluralize }}</h4>
+        <h4>{{ total_replies }} reply {{ total_replies | pluralize }}</h4>
     {% endwith %}
     <hr>
     {% if new_reply %}

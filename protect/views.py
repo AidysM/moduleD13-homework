@@ -34,16 +34,18 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = '/'
 
 
-class ReplyView(TemplateView):
-    model = Reply
-    template_name = 'protect/reply.html'
-    context_object_name = 'adv_reply'
-    queryset = Reply.objects.all()
-    # paginate_by = 10
+# class ReplyView(TemplateView):
+#     model = Reply
+#     template_name = 'protect/reply.html'
+#     context_object_name = 'adv_reply'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         # replies = Reply.objects.filter()
+#         # context['replies'] = replies
+#
+#         return context
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # replies = Reply.objects.filter()
-        # context['replies'] = replies
 
-        return context
+def take_reply(request, reply_pk):
+    pass

@@ -138,10 +138,17 @@ class ReplyDetailView(FormView):
 class ReplyCreateView(CreateView):
     template_name = 'adverts/advert.html'
     form_class = ReplyForm
-    success_url = '/adverts/{advert.id}/'
+    success_url = '/adverts/'
 
 
 class ReplyUpdateView(UpdateView):
     template_name = 'adverts/advert.html'
     form_class = ReplyForm
+
+
+class ReplyDeleteView(DeleteView):
+    template_name = 'protect/reply_delete.html'
+    queryset = Reply.objects.all()
+    success_url = '/'
+
 

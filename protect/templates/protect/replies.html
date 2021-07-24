@@ -3,13 +3,15 @@
 {% block replies %}
     <h3>Список откликов на {{ advert.adv_name }}:</h3> <br>
     {% for adv_reply in adv_replies %}
-        <a href="{% url 'adv_reply' advert.id adv_reply.id %}">{{ adv_reply.text | truncatechars:50 }}</a>
-        {{ adv_reply.created_reply }} by {{ adv_reply.user.username }}
-        <a href="#">Принять</a>
-        <a href="#">Удалить</a>
+        <p>{{ adv_reply.text }}</p>
+        <i>
+            {{ adv_reply.created_reply }} by {{ adv_reply.user.username }}
+            <a href="#">Принять</a>
+            <a href="#{% url 'adv_reply_delete' advert.id %}">Удалить</a>
+        </i>
         {% block adv_reply %}
         {% endblock %}
-        <br>
+        <br><br>
     {% endfor %}
     <br>
     <a href="/">Назад</a>
