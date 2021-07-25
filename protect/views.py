@@ -1,12 +1,11 @@
-import requests
-from django.contrib.auth.models import User
+# import requests
+# from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
 
-# from adverts.views import ReplyDetailView
+
 from .forms import UserForm
 from adverts.models import Reply, Advert
 
@@ -45,10 +44,10 @@ def take_reply(request, advert_pk, reply_pk):
     reply = Reply.objects.get(id=reply_pk)
     reply.save()
     send_mail(
-        'Your reply is taken',
-        'Hi! Your reply form {reply.created_reply} is taken.',
-        'mongushit79@gmail.com',
-        [request.user.email]
+        subject='Your reply is taken',
+        message=f'Hi! Your reply form {reply.created_reply} is taken.',
+        from_email='mongushit79@gmail.com',
+        recipient_list=[request.user.email]
     )
     return redirect('replies_by_advert')
 
