@@ -6,9 +6,8 @@
         <p>{{ adv_reply.text }}</p>
         <i>
             {{ adv_reply.created_reply }} by {{ adv_reply.user.username }}
-{#            <a href="/{{ advert.pk }}/take_reply/?advert={{ advert.id }}">Принять</a>#}
-            <a href="#">Принять</a>
-            <a href="#">Удалить</a>
+            <a href="{% url 'take_reply' advert.id adv_reply.id %}">Принять</a>
+            <a href="{% url 'delete_reply' advert.id adv_reply.id %}">Удалить</a>
         </i>
         {% block adv_reply %}
         {% endblock %}

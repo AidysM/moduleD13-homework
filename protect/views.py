@@ -35,15 +35,18 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = '/'
 
 
-def delete_reply(request):
-    pass
+def delete_reply(request, advert_pk, reply_pk):
+    reply = Reply.objects.get(id=reply_pk)
+    reply.delete()
+    return redirect('replies_by_advert')
 
 
-def take_reply(request):
-    reply = Reply.objects.get(id=request.GET.get('id'))
+def take_reply(request, advert_pk, reply_pk):
+    reply = Reply.objects.get(id=reply_pk)
+    reply.save()
     send_mail(
         'Your reply is taken',
-        'Hi! Your reply form { reply.created_reply } is taken.',
+        'Hi! Your reply form {reply.created_reply} is taken.',
         'mongushit79@gmail.com',
         [request.user.email]
     )

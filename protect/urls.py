@@ -1,13 +1,11 @@
 from django.urls import path
-from .views import ProfileView, replies_by_advert
-
-from .views import take_reply
+from .views import ProfileView, replies_by_advert, take_reply, delete_reply
 
 
 urlpatterns = [
     path('', ProfileView.as_view()),
     path('<int:advert_pk>/', replies_by_advert, name='replies_by_advert'),
-    path('<int:advert_pk>/take_reply/', take_reply, name='reply_take')
-    # path('<int:advert_pk>/delete/', ReplyDeleteView.as_view(), name='adv_reply_delete')
+    path('<int:advert_pk>/<int:reply_pk>/take/', take_reply, name='take_reply'),
+    path('<int:advert_pk>/<int:reply_pk>/delete/', delete_reply, name='delete_reply')
 
 ]
