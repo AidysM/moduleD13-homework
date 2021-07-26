@@ -37,7 +37,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 def delete_reply(request, advert_pk, reply_pk):
     reply = Reply.objects.get(id=reply_pk)
     reply.delete()
-    return redirect('replies_by_advert')
+    return redirect(f'/{advert_pk}/')
 
 
 def take_reply(request, advert_pk, reply_pk):
@@ -45,9 +45,9 @@ def take_reply(request, advert_pk, reply_pk):
     reply.save()
     send_mail(
         subject='Your reply is taken',
-        message=f'Hi! Your reply form {reply.created_reply} is taken.',
-        from_email='mongushit79@gmail.com',
+        message=f'Hi! Your reply from {reply.created_reply} is taken.',
+        from_email='mongushit@yandex.ru',
         recipient_list=[request.user.email]
     )
-    return redirect('replies_by_advert')
+    return redirect(f'/{advert_pk}/')
 

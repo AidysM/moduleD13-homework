@@ -12,18 +12,18 @@ def notify_managers_post(sender, instance, created, **kwargs):
     if created:
         subject = f'{instance.adv_name} {instance.created.strftime("%d %m %Y")}'
     else:
-        subject = f'Reply changed for {instance.adv_name} {instance.created.strftime("%d %m %Y")}'
+        subject = f'Advert changed for {instance.adv_name} {instance.created.strftime("%d %m %Y")}'
 
     send_mail(
         subject=subject,
-        message=instance.content[:20],
+        message=instance.content[:20] + '...',
         from_email='mongushit@yandex.ru',
         recipient_list=[instance.announcer.user.email, ]
     )
 
     mail_admins(
         subject=subject,
-        message=instance.content[:30],
+        message=instance.content[:30] + '...',
     )
 
 
@@ -32,7 +32,7 @@ def notify_managers_post(sender, instance, created, **kwargs):
     if created:
         subject = f'{instance.text} {instance.created_reply.strftime("%d %m %Y")}'
     else:
-        subject = f'Reply changed for {instance.text} {instance.created_reply.strftime("%d %m %Y")}'
+        subject = f'Reply accepted for {instance.text} {instance.created_reply.strftime("%d %m %Y")}'
 
     mail_managers(
         subject=subject,
