@@ -162,14 +162,14 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
 
 EMAIL_HOST = 'smtp.google.com' # адрес сервера Яндекс-почты для всех один и тот же
 EMAIL_PORT = 587 #465 # порт smtp сервера тоже одинаковый
 EMAIL_HOST_USER = 'mongushit79@gmail.com' # ваше имя пользователя, например если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-EMAIL_HOST_PASSWORD = '10011979Gm' # пароль от почты
+EMAIL_HOST_PASSWORD = '10011979it' # пароль от почты
 EMAIL_USE_TLS = True # Яндекс использует ssl, подробнее о том, что это, почитайте на Википедии, но включать его здесь обязательно
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
