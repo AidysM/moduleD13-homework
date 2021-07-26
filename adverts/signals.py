@@ -1,12 +1,32 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver  # импортируем нужный декоратор
 from django.core.mail import mail_managers, mail_admins, send_mail
-from .models import Reply
+from .models import Reply, Advert
 
 
 # создаём функцию обработчик с параметрами под регистрацию сигнала
 # в декоратор передаётся первым аргументом сигнал, на который будет реагировать эта функция, и
 # в отправители надо передать также модель
+@receiver(post_save, sender=Advert)
+def notify_managers_post(sender, instance, created, **kwargs):
+    if created:
+        subject = f'{instance.adv_name} {instance.created.strftime("%d %m %Y")}'
+    else:
+        subject = f'Reply changed for {instance.adv_name} {instance.created.strftime("%d %m %Y")}'
+
+    send_mail(
+        subject=subject,
+        message=instance.content[:20],
+        from_email='mongushit@yandex.ru',
+        recipient_list=[instance.announcer.user.email, ]
+    )
+
+    mail_admins(
+        subject=subject,
+        message=instance.content[:30],
+    )
+
+
 @receiver(post_save, sender=Reply)
 def notify_managers_post(sender, instance, created, **kwargs):
     if created:
@@ -22,7 +42,7 @@ def notify_managers_post(sender, instance, created, **kwargs):
     send_mail(
         subject=subject,
         message=instance.text,
-        from_email='mongushit79@gmail.com',
+        from_email='mongushit@yandex.ru',
         recipient_list=[instance.user.email, instance.advert.announcer.user.email, ]
     )
 
