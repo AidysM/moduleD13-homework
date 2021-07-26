@@ -7,14 +7,19 @@ class Announcer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.ann_name
+        return f'{self.ann_name} {self.user}'
+
+    class Meta:
+        ordering = ['ann_name']
+        verbose_name = 'Объявитель'
+        verbose_name_plural = 'Объявители'
 
 
 class Category(models.Model):
     cat_name = models.CharField(max_length=200)
 
     def __str__(self) -> str:
-        return self.cat_name
+        return f'{self.cat_name}'
 
     class Meta:
         ordering = ['cat_name']
@@ -38,7 +43,7 @@ class Advert(models.Model):
         verbose_name_plural = 'Объявления'
 
     def __str__(self) -> str:
-        return self.adv_name
+        return f'{self.adv_name}'
 
 
 class Reply(models.Model):
