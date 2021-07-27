@@ -43,7 +43,7 @@ class Advert(models.Model):
         verbose_name_plural = 'Объявления'
 
     def __str__(self) -> str:
-        return f'{self.adv_name}'
+        return f'{self.adv_name} - {self.category} by {self.announcer}'
 
 
 class Reply(models.Model):
